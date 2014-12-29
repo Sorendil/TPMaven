@@ -45,12 +45,11 @@ public class Bookmark {
 	public String newBookmark(@FormParam("name") String name) {
 		// Create new Bookmark
 		MBookmark mBookmark = new MBookmark();
-		if (name != null)
-			mBookmark.setName(name);
-		else {
+		if (name == null)
 			throw new BadRequestException("The name is required for creating new bookmark");
-		}
-
+		
+		mBookmark.setName(name);
+		
 		// Enregistrement du nouveau bookmark
 		serviceBookmark.save(mBookmark);
 
