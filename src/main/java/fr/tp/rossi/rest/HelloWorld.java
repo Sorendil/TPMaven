@@ -34,8 +34,6 @@ public class HelloWorld {
 	@GET
 	@Produces("text/html")
 	public String getHtml() {
-		return "<html lang=\"en\"><body><h1>THIS IS "
-				+ serviceBookmark.getHtml()
-				+ "</h1></body></html>";
+		return "<html lang=\"en\"><body><h1>Hello world</h1></body></html>";
 	}
 }
