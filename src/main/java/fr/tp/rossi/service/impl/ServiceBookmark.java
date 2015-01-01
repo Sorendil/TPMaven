@@ -37,8 +37,4 @@ public class ServiceBookmark implements IServiceBookmark {
 		return list;
 	}
 
-	public String getHtml() {
-		return "ServiceBookmark::getHtml()";
-	}
-
 }
