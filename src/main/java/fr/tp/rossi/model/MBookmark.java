@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 import fr.tp.rossi.common.PersistentObjectImpl;
 
 @Entity
-@Table(name = "mbookmark")
+@Table(name = "MBookmark")
 public class MBookmark extends PersistentObjectImpl {
 
 	private static final long serialVersionUID = 1L;

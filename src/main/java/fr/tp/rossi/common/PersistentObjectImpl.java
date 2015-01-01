@@ -8,9 +8,11 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public class PersistentObjectImpl implements IPersistentObject {
 
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue
-	@Column(name = "id", unique = true, nullable = false)
+	@Column(name = "id", nullable = false)
 	private Integer id;
 
 	public Integer getId() {

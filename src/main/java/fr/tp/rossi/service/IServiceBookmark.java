@@ -9,6 +9,4 @@ public interface IServiceBookmark {
 
 	public MBookmark save(MBookmark newInstance);
 	public List<MBookmark> getAll();
-	
-	public String getHtml();
 }
