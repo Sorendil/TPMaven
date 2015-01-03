@@ -57,7 +57,7 @@ public class Bookmark {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public String newBookmark(@FormParam("name") String name) {
+	public MBookmark newBookmark(@FormParam("name") String name) {
 		if (name == null)
 			throw new BadRequestException(
 					"The name is required for creating new bookmark");
@@ -69,7 +69,7 @@ public class Bookmark {
 		// Enregistrement du nouveau bookmark
 		serviceBookmark.save(mBookmark);
 
-		return "Ok";
+		return mBookmark;
 	}
 
 }
