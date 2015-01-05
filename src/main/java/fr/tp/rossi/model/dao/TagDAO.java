@@ -21,17 +21,4 @@ public class TagDAO {
 		return list;
 	}
 
-	public MTag save(final MTag newInstance) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("tp");
-		EntityManager em = emf.createEntityManager();
-		em.getTransaction().begin();
-		em.persist(newInstance);
-		em.flush();
-		em.getTransaction().commit();
-		em.close();
-		emf.close();
-		
-		return newInstance;
-	}
-
 }
