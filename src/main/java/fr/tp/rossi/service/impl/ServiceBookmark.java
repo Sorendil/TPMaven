@@ -2,39 +2,29 @@ package fr.tp.rossi.service.impl;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
 import org.springframework.stereotype.Service;
 
+import fr.tp.rossi.common.PersistentObjectImpl;
 import fr.tp.rossi.model.MBookmark;
+import fr.tp.rossi.model.MTag;
+import fr.tp.rossi.model.dao.BookmarkDAO;
+import fr.tp.rossi.model.dao.CommonDAO;
+import fr.tp.rossi.model.dao.TagDAO;
 import fr.tp.rossi.service.IServiceBookmark;
 
 @Service
 public class ServiceBookmark implements IServiceBookmark {
 
-	public MBookmark save(final MBookmark newInstance) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("tp");
-		EntityManager em = emf.createEntityManager();
-		em.getTransaction().begin();
-		em.persist(newInstance);
-		em.flush();
-		em.getTransaction().commit();
-		em.close();
-		emf.close();
-		
-		return newInstance;
+	public PersistentObjectImpl save(final PersistentObjectImpl newInstance) {
+		return (new CommonDAO()).save(newInstance);
 	}
 
-	public List<MBookmark> getAll() {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("tp");
-		EntityManager em = emf.createEntityManager();
-		List<MBookmark> list = em.createQuery("from MBookmark").getResultList();
-		em.close();
-		emf.close();
-		
-		return list;
+	public List<MBookmark> getAllBookmarks() {
+		return (new BookmarkDAO()).findAll();
+	}
+
+	public List<MTag> getAllTags() {
+		return (new TagDAO()).findAll();
 	}
 
 }
