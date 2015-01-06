@@ -13,6 +13,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.codehaus.jackson.annotate.JsonManagedReference;
+
 import fr.tp.rossi.common.PersistentObjectImpl;
 
 @Entity
@@ -25,6 +27,7 @@ public class MBookmark extends PersistentObjectImpl {
 	@Column(name = "name", unique = false, nullable = false)
 	private String name;
 
+	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "MBookmark_MTag",
 		joinColumns = { @JoinColumn(name = "bookmark_id", nullable = false, updatable = false) },
@@ -46,6 +49,7 @@ public class MBookmark extends PersistentObjectImpl {
 		this.name = name;
 	}
 
+	@JsonManagedReference
 	public Set<MTag> getTags() {
 		return this.tags;
 	}
