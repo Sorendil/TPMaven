@@ -13,7 +13,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.codehaus.jackson.annotate.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import fr.tp.rossi.common.PersistentObjectImpl;
 
@@ -56,6 +56,17 @@ public class MBookmark extends PersistentObjectImpl {
 
 	public void setTags(Set<MTag> tags) {
 		this.tags = tags;
+	}
+	
+	/*
+	 * Méthode nécessaire car getTags().remove(tag) ne fonctionne pas
+	 */
+	public void removeTag(MTag tag) {
+		for(MTag currentTag : this.tags)
+		{
+			if(currentTag.getId().equals(tag.getId()))
+				this.tags.remove(currentTag);
+		}
 	}
 
 	public String getDescription() {

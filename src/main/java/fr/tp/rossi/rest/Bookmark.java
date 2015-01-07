@@ -22,6 +22,7 @@ import com.sun.jersey.api.core.InjectParam;
 import fr.tp.rossi.model.MBookmark;
 import fr.tp.rossi.model.MTag;
 import fr.tp.rossi.rest.exception.BadRequestException;
+import fr.tp.rossi.rest.exception.NotFoundException;
 import fr.tp.rossi.service.IServiceBookmark;
 
 /**
@@ -58,7 +59,7 @@ public class Bookmark {
 
 		// Si le bookmark n'existe pas
 		if (bookmark == null)
-			throw new BadRequestException("The bookmark doesn't exist");
+			throw new NotFoundException("The bookmark doesn't exist");
 
 		return Response.status(Response.Status.OK) // Retourne code 200
 				.entity(bookmark).build();
@@ -144,7 +145,7 @@ public class Bookmark {
 
 		// Si le bookmark n'existe pas
 		if (bookmark == null)
-			throw new BadRequestException("The bookmark doesn't exist");
+			throw new NotFoundException("The bookmark doesn't exist");
 		
 		// Ici, on crée un tag ou on le récupère s'il existe déjà
 		MTag tag = serviceBookmark.createOrRetrieveTagByName(tagName);
@@ -153,6 +154,9 @@ public class Bookmark {
 		Set<MTag> bookmark_tags = bookmark.getTags();
 		bookmark_tags.add(tag);
 		bookmark.setTags(bookmark_tags);
+		
+		// On actualise le tag (pour pas qu'un tag doublon apparaisse)
+		bookmark = serviceBookmark.findBookmarkById(id);
 
 		// On enregistre le bookmark
 		serviceBookmark.update(bookmark);
@@ -180,22 +184,21 @@ public class Bookmark {
 
 		// Si le bookmark n'existe pas
 		if (bookmark == null)
-			throw new BadRequestException("The bookmark doesn't exist");
+			throw new NotFoundException("The bookmark doesn't exist");
 		
 		// On récupère le tag
 		MTag tag = serviceBookmark.findTagById(tagId);
-		
-		// Si le tag existe
-		if (tag != null)
-		{
-			// On l'enlève au bookmark
-			Set<MTag> bookmark_tags = bookmark.getTags();
-			bookmark_tags.remove(tag);
-			bookmark.setTags(bookmark_tags);
 
-			// On enregistre le bookmark
-			serviceBookmark.update(bookmark);
-		}
+		// Si le tag n'existe pas
+		if (tag == null)
+			throw new NotFoundException("The tag doesn't exist");
+
+		// On supprime le tag du bookmark
+		bookmark.removeTag(tag);
+
+		// On enregistre le bookmark
+		serviceBookmark.update(bookmark);
+
 		
 		return Response.status(Response.Status.OK) // Retourne code 200
 				.entity(bookmark).build();
@@ -217,7 +220,7 @@ public class Bookmark {
 
 		// Si le bookmark n'existe pas
 		if (bookmark == null)
-			throw new BadRequestException("The bookmark doesn't exist");
+			throw new NotFoundException("The bookmark doesn't exist");
 
 		// TODO : Gérer les erreurs de suppression ratées
 		serviceBookmark.delete(bookmark);

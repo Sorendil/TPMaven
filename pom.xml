@@ -1,9 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-    <groupId>fr.tp.rossi.rest</groupId>
+	<groupId>fr.tp.rossi.rest</groupId>
 	<artifactId>RestBookmarkManager</artifactId>
-  <version>1.0-SNAPSHOT</version>
+	<version>1.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>RestBookmarkManager</name>
 	<description>RestBookmarkManager</description>
@@ -23,11 +23,23 @@
 	</repositories>
 
 	<dependencies>
+		<!-- Jack' son -->
 		<dependency>
-	        <groupId>org.codehaus.jackson</groupId>
-	        <artifactId>jackson-mapper-asl</artifactId>
-	        <version>1.9.13</version>
-	    </dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.2.2</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.restlet</groupId>
 			<artifactId>org.restlet</artifactId>
@@ -48,7 +60,7 @@
 			<artifactId>com.noelios.restlet.ext.spring</artifactId>
 			<version>${restlet.version}</version>
 		</dependency>
-	
+
 		<!-- Jersey -->
 		<dependency>
 			<groupId>com.sun.jersey</groupId>
@@ -65,11 +77,11 @@
 			<groupId>com.sun.jersey.contribs</groupId>
 			<artifactId>jersey-spring</artifactId>
 			<version>${jersey.version}</version>
-		
-			<!-- 	Exclusion explicite des dépendances SPRING (par défaut spring 2.5
+
+			<!-- Exclusion explicite des dépendances SPRING (par défaut spring 2.5 
 				mais compatible 3.X -->
-		
-			<exclusions> 
+
+			<exclusions>
 				<exclusion>
 					<groupId>org.springframework</groupId>
 					<artifactId>spring-core</artifactId>
@@ -90,12 +102,12 @@
 					<groupId>org.springframework</groupId>
 					<artifactId>spring-web</artifactId>
 				</exclusion>
-						<exclusion>
+				<exclusion>
 					<groupId>org.springframework</groupId>
 					<artifactId>spring-aop</artifactId>
 				</exclusion>
 			</exclusions>
-		</dependency>	
+		</dependency>
 
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -103,7 +115,7 @@
 			<version>1.6.4</version>
 			<scope>runtime</scope>
 		</dependency>
-	
+
 		<!-- SPRING -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -178,7 +190,7 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
 			<version>4.2.0.Final</version>
-		</dependency>		
+		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-commons-annotations</artifactId>
@@ -215,17 +227,12 @@
 			<artifactId>derbyclient</artifactId>
 			<version>10.10.1.1</version>
 		</dependency>
-		 <!--
-		<dependency>
-		    <groupId>org.hsqldb</groupId>
-		    <artifactId>hsqldb</artifactId>
-		    <version>2.3.1</version>
-		</dependency>
-		-->
+		<!-- <dependency> <groupId>org.hsqldb</groupId> <artifactId>hsqldb</artifactId> 
+			<version>2.3.1</version> </dependency> -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<version>1.6.1</version>
-		</dependency>	
+		</dependency>
 	</dependencies>
 </project>

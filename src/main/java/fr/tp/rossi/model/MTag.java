@@ -1,6 +1,8 @@
 package fr.tp.rossi.model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -11,7 +13,8 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
-import org.codehaus.jackson.annotate.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import fr.tp.rossi.common.PersistentObjectImpl;
 
@@ -25,7 +28,6 @@ public class MTag extends PersistentObjectImpl {
 	@Column(name = "name", unique = true, nullable = false)
 	private String name;
 
-	
 	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "tags")
 	private Set<MBookmark> bookmarks = new HashSet<MBookmark>(0);
 
@@ -47,6 +49,19 @@ public class MTag extends PersistentObjectImpl {
  
 	public void setBookmarks(Set<MBookmark> bookmarks) {
 		this.bookmarks = bookmarks;
+	}
+	
+	@JsonProperty("bookmarks_references")
+	public List<Integer> getBookmarksId() {
+		List<Integer> bookmarks_id = new ArrayList<Integer>();
+		Set<MBookmark> bookmarks = getBookmarks();
+		// Pour chaque bookmark
+		for(MBookmark bookmark: bookmarks)
+		{
+			bookmarks_id.add(bookmark.getId());
+		}
+		
+		return bookmarks_id;
 	}
 
 	@Override

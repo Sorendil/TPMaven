@@ -17,6 +17,7 @@ import com.sun.jersey.api.core.InjectParam;
 import fr.tp.rossi.model.MBookmark;
 import fr.tp.rossi.model.MTag;
 import fr.tp.rossi.rest.exception.BadRequestException;
+import fr.tp.rossi.rest.exception.NotFoundException;
 import fr.tp.rossi.service.IServiceBookmark;
 
 @Path("tag")
@@ -43,19 +44,17 @@ public class Tag {
 	@Path("{id}")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getTag(@PathParam("id") Integer id) {
-		if(id == null)
-			throw new BadRequestException(	
-					"The tag id is required");
-		
+		if (id == null)
+			throw new BadRequestException("The tag id is required");
+
 		MTag tag = serviceBookmark.findTagById(id);
-		
+
 		// Si le tag n'existe pas
-		if(tag == null)
-			throw new BadRequestException(
-					"The tag doesn't exist");
-		
+		if (tag == null)
+			throw new NotFoundException("The tag doesn't exist");
+
 		return Response.status(Response.Status.OK) // Retourne code 200
-	            .entity(tag).build();
+				.entity(tag).build();
 	}
 
 	/**
@@ -78,7 +77,7 @@ public class Tag {
 	@DELETE
 	@Path("{id}")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response deleteBookmark(@PathParam("id") Integer id) {
+	public Response deleteTag(@PathParam("id") Integer id) {
 		if (id == null)
 			throw new BadRequestException("The tag id is required");
 
@@ -86,7 +85,7 @@ public class Tag {
 
 		// Si le tag n'existe pas
 		if (tag == null)
-			throw new BadRequestException("The tag doesn't exist");
+			throw new NotFoundException("The tag doesn't exist");
 
 		// TODO : Gérer les erreurs de suppression ratées
 		serviceBookmark.delete(tag);
